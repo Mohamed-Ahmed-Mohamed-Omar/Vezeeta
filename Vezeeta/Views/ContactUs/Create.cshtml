@@ -1,0 +1,39 @@
+﻿@model Vezeeta.Models.Contact_us.AddContactUsVM
+
+@{
+    ViewData["Title"] = "اتصل بنا";
+}
+
+<div class="v">
+<h2>اتصل بنا</h2>
+    <div class="v1">
+        <form asp-action="Create" method="post" class="CreateContact">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label" Required>الاسم</label>
+                <input asp-for="Name" class="form-control" placeholder="الاسم الكامل" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="phone" class="control-label">رقم الموبايل</label>
+                <input asp-for="phone" class="form-control" placeholder="رقم الموبايل" />
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message"  
+                       class="control-label">تعليقات</label>
+                <textarea asp-for="Message" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ارسال"  
+                       class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

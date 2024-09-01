@@ -1,0 +1,20 @@
+﻿.p h2 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #0070cd;
+}
+
+.p .text-end {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    margin-top: 20px;
+}
+.p thead th {
+    background-color: rgb(69 167 190);
+    text-align:center;
+}
+
+.p #table{
+    border: 1px solid #eee !important;
+}
