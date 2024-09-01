@@ -1,0 +1,104 @@
+﻿@model Vezeeta.Models.Contact_us.AddContactUsVM
+
+@{
+    ViewData["Title"] = "اتصل بنا";
+}
+
+<style>
+    .v{
+        direction: rtl;
+        background-image: url();
+    }
+
+    /* Basic form styling */
+    form {
+        margin: 20px auto;
+        width: 50%;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    h2{
+        color: #0070cd;
+    }
+
+    /* Styling for labels and inputs */
+    label {
+        display: block;
+        margin: 10px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius:   3px;
+        box-sizing: border-box;
+
+    }
+
+    textarea {
+        height: 150px;
+    }
+
+    /* Styling for submit button */
+    .btn-primary {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .btn-primary:hover{
+        color: #f44336;
+        background-color: white;
+        border: 5px solid #f44336;
+    }
+
+    /* Styling for validation messages */
+    .text-danger {
+        color: red;
+        font-size: 12px;
+    }
+</style>
+
+<div class="v">
+<h2>اتصل بنا</h2>
+
+<form asp-action="Create" method="post" class="CreateContact">
+    <div class="form-group">
+        <label asp-for="Name" Required>الاسم</label>
+        <input asp-for="Name" placeholder="الاسم الكامل" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="phone" class="control-label">رقم الموبايل</label>
+        <input asp-for="phone" class="form-control" placeholder="رقم الموبايل" />
+        <span asp-validation-for="phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Message"  
+               class="control-label">تعليقات</label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="ارسال"  
+               class="btn btn-primary" />
+    </div>
+</form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

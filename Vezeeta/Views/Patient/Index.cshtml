@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Vezeeta.Models.Patients.GetAllPatients>
+
+@{
+    ViewData["Title"] = "Patients List";
+}
+
+<h2 class="text-center mb-5 fs-6 mt-5">Patients List</h2>
+
+<table class="table border-1" dir="rtl" lang="ar">
+    <thead class="bg-primary">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Id)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().phone)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Date)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Area)</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.Id</td>
+                <td>@patient.Name</td>
+                <td>@patient.phone</td>
+                <td>@patient.Email</td>
+                <td>@patient.Gender</td>
+                <td>@patient.Date.ToShortDateString()</td>
+                <td>@patient.Area</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-outline-warning">Edit</a> 
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-outline-success mt-2">Add New Patient</a>
+
+
+
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

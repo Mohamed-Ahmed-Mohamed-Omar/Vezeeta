@@ -1,0 +1,63 @@
+﻿@model Vezeeta.Models.Patients.AddPatient
+
+@{
+    ViewData["Title"] = "Create Patient";
+}
+
+<h2 class="text-center fs-5 mb-5">Create Patient</h2>
+
+
+<div class="container">
+    <form asp-action="Create" method="post" class="form-control">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label mb-3"></label>
+            <input asp-for="Name" class="form-control mb-2" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="phone" class="control-label mb-3"></label>
+            <input asp-for="phone" class="form-control mb-2" />
+            <span asp-validation-for="phone" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-label mb-3"></label>
+            <input asp-for="Email" class="form-control mb-2" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GenderId" class="control-label mb-3"></label>
+            <select asp-for="GenderId" class="form-control mb-2" asp-items="ViewBag.GenList"></select>
+            <span asp-validation-for="GenderId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Date" class="control-label mb-3"></label>
+            <input asp-for="Date" class="form-control mb-2" type="date" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AreaId" class="control-label mb-3"></label>
+            <select asp-for="AreaId" class="form-control mb-2" asp-items="ViewBag.AreaList"></select>
+            <span asp-validation-for="AreaId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
