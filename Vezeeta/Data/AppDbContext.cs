@@ -12,8 +12,5 @@ namespace Vezeeta.Data
         public DbSet<Area> areas { get; set; }
         public DbSet<Gender> genders { get; set; }
         public DbSet<Patient> patients { get; set; }
-        public DbSet<Doctor> doctors { get; set; }
-        public DbSet<Reservation> reservations { get; set; }
-        public DbSet<Specialization> specializations { get; set; }
     }
 }

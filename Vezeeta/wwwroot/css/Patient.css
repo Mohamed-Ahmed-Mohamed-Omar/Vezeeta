@@ -15,6 +15,29 @@
     text-align:center;
 }
 
-.p #table{
-    border: 1px solid #eee !important;
+.p .table{
+    border: 2px solid #eee !important;
+}
+
+.p tbody td{
+    text-align: center;
+}
+
+/*   Delete  */
+
+.d{
+    direction:rtl;
+}
+
+/*  create */
+
+.create-p h1 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #0070cd;
+}
+
+..gender-options {
+    margin-top: 0.5rem;
 }

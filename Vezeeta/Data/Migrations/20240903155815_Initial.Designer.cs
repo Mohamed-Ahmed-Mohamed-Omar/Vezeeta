@@ -12,7 +12,7 @@ using Vezeeta.Data;
 namespace Vezeeta.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240829144538_Initial")]
+    [Migration("20240903155815_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
