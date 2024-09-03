@@ -41,3 +41,35 @@
 ..gender-options {
     margin-top: 0.5rem;
 }
+
+.create-p form {
+    background-color: #ccc;
+}
+
+
+.Edit-p h2 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: #0070cd;
+}
+
+.Edit-p form {
+    background-color: #ccc;
+}
+
+.report-link {
+    text-decoration: none;
+    background-color: #0c6cae; /* Primary color #007bff */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block; /* Ensures padding works correctly */
+    text-align: center; /* Center text inside the button */
+}
+
+.report-link:hover {
+    background-color: white; /* Darker shade for hover effect */
+    color: #0c6cae;
+    border:1px solid #0c6cae
+}

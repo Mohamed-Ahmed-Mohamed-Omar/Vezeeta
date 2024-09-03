@@ -8,13 +8,11 @@ namespace Vezeeta.Controllers
     public class PatientController : Controller
     {
         private readonly IPatientRepository _patientRepository;
-        private readonly IGenderRepository _genderRepository;
         private readonly IAreaRepository _areaRepository;
 
-        public PatientController(IPatientRepository patientRepository, IGenderRepository genderRepository, IAreaRepository areaRepository)
+        public PatientController(IPatientRepository patientRepository, IAreaRepository areaRepository)
         {
             _patientRepository = patientRepository;
-            _genderRepository = genderRepository;
             _areaRepository = areaRepository;
         }
 
@@ -27,9 +25,6 @@ namespace Vezeeta.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var gen = await _genderRepository.GetAll();
-
-            ViewBag.GenList = new SelectList(gen, "Id", "GenderName");
 
             var area = await _areaRepository.GetAll();
 
@@ -39,7 +34,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddPatient addPatient)
+        public async Task<IActionResult> Create([FromForm]AddPatient addPatient)
         {
             if (ModelState.IsValid)
             {
@@ -49,10 +44,6 @@ namespace Vezeeta.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
-
-                var gen = await _genderRepository.GetAll();
-
-                ViewBag.GenList = new SelectList(gen, "Id", "GenderName");
 
                 var area = await _areaRepository.GetAll();
 
@@ -72,25 +63,25 @@ namespace Vezeeta.Controllers
                 return NotFound();
             }
 
-            // Mapping from GetAllPatients to UpdatePatients
-            var updatePatient = new UpdatePatients
+            var areaList = await _areaRepository.GetAll();
+
+            ViewBag.AreaList = new SelectList(areaList, "Id", "AreaName", patient.AreaId);
+
+            // Convert patient to UpdatePatients if necessary
+            var model = new UpdatePatients
             {
                 Id = patient.Id,
                 Name = patient.Name,
                 phone = patient.phone,
                 Email = patient.Email,
-                GenderId = patient.GenderId,
+                GenId = patient.GenId,
                 Date = patient.Date,
-                AreaId = patient.AreaId
+                AreaId = patient.AreaId,
+                Image = patient.Image,
+                Report = patient.Report
             };
 
-            var gen = await _genderRepository.GetAll();
-            ViewBag.GenList = new SelectList(gen, "Id", "GenderName", updatePatient.GenderId);
-
-            var area = await _areaRepository.GetAll();
-            ViewBag.AreaList = new SelectList(area, "Id", "AreaName", updatePatient.AreaId);
-
-            return View(updatePatient);
+            return View(model);
         }
 
         // POST: Patients/Edit/5
@@ -104,10 +95,6 @@ namespace Vezeeta.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
-
-                var gen = await _genderRepository.GetAll();
-
-                ViewBag.GenList = new SelectList(gen, "Id", "GenderName", patient.GenderId);
 
                 var area = await _areaRepository.GetAll();
 

@@ -4,34 +4,67 @@
     ViewBag.Title = "Delete Patient";
 }
 
-<div class="d">
+<div class="delete-confirmation" dir="rtl">
+    <h1>هل أنت متأكد أنك تريد حذف هذا المريض؟</h1>
 
-    <form asp-controller="Patient" asp-action="Delete" class="form-group">
-        <div>
-            <h1>هل أنت متأكد أنك تريد حذف هذا المريض؟</h1>
-            <div class="patient-details">
-                <h4>تفاصيل المريض</h4>
-                <dl class="row">
-                    <dt class="col-sm-2">الاسم</dt>
-                    <dd class="col-sm-8">@Model.Name</dd>
-                    <dt class="col-sm-2">رقم الموبايل</dt>
-                    <dd class="col-sm-8">@Model.phone</dd>
-                    <dt class="col-sm-2">الايميل</dt>
-                    <dd class="col-sm-8">@Model.Email</dd>
-                    <dt class="col-sm-2">النوع</dt>
-                    <dd class="col-sm-8">@Model.Gender</dd>
-                    <dt class="col-sm-2">التاريخ</dt>
-                    <dd class="col-sm-8">@Model.Date.ToShortDateString()</dd>
-                    <dt class="col-sm-2">المركز</dt>
-                    <dd class="col-sm-8">@Model.Area</dd>
-                </dl>
-            </div>
+    <div class="patient-details">
+        <h4>تفاصيل المريض</h4>
+        <dl class="row">
+            <dt class="col-sm-2">الاسم</dt>
+            <dd class="col-sm-8">@Model.Name</dd>
 
-            <center>
-                <input type="submit" value="حذف" class="btn btn-danger" />
-                <a asp-controller="Patient" asp-action="Index" class="btn btn-info">الغاء</a>
-            </center>
-        </div>
-    </form>
+            <dt class="col-sm-2">رقم الموبايل</dt>
+            <dd class="col-sm-8">@Model.phone</dd>
+
+            <dt class="col-sm-2">الايميل</dt>
+            <dd class="col-sm-8">@Model.Email</dd>
+
+            <dt class="col-sm-2">النوع</dt>
+            <dd class="col-sm-8">@(Model.GenId == 1 ? "ذكر" : "أنثى")</dd>
+
+            <dt class="col-sm-2">التاريخ</dt>
+            <dd class="col-sm-8">@Model.Date.ToShortDateString()</dd>
+
+            <dt class="col-sm-2">المركز</dt>
+            <dd class="col-sm-8">@Model.Area</dd>
+
+            <dt class="col-sm-2">التقارير الطبية</dt>
+            <dd class="col-sm-8">
+                @if (!string.IsNullOrEmpty(Model.Report))
+                {
+                    <a href="~/Files/Reports/@Model.Report" target="_blank" class="report-link">عرض التقرير</a>
+                }
+                else
+                {
+                    <span>لا يوجد تقرير</span>
+                }
+            </dd>
+
+            <dt class="col-sm-2">الصورة</dt>
+            <dd class="col-sm-8">
+                @if (!string.IsNullOrEmpty(Model.Image))
+                {
+                    <a href="~/Files/Images/@Model.Image" target="_blank" class="report-link">عرض صور الاشعه</a>
+                }
+                else
+                {
+                    <span>لا توجد صورة</span>
+                }
+            </dd>
+        </dl>
+    </div>
+
+    <center>
+        <form asp-controller="Patient" asp-action="Delete" method="post" class="form-group">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="حذف" class="btn btn-danger" />
+            <a asp-controller="Patient" asp-action="Index" class="btn btn-info">الغاء</a>
+        </form>
+    </center>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

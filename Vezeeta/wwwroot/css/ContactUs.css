@@ -115,3 +115,7 @@ textarea {
     text-align: center;
     border-color: #2cb6a8;
 }
+
+.t tbody td{
+    text-align: center;
+}

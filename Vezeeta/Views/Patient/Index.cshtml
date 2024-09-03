@@ -7,41 +7,68 @@
 <div class="p">
     <h2>قائمة المرضي</h2>
 
-    <table class="table" dir="rtl">
+    <table class="table" dir="rtl" style="text-align:center;">
         <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.First().Id)</th>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Id)</th>
                 <th>الاسم</th>
                 <th>رقم الموبايل</th>
                 <th>الايميل</th>
                 <th>النوع</th>
                 <th>التاريخ</th>
                 <th>المركز</th>
+                <th>التقارير الطبية</th>
+                <th>صور الاشعة و التحاليل</th>
                 <th>التعديل</th>
                 <th>الحذف</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var patient in Model)
-        {
-            <tr>
-                <td>@patient.Id</td>
-                <td>@patient.Name</td>
-                <td>@patient.phone</td>
-                <td>@patient.Email</td>
-                <td>@patient.Gender</td>
-                <td>@patient.Date.ToShortDateString()</td>
-                <td>@patient.Area</td>
-                <td>
-                        <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-outline-warning">تعديل</a>
-                </td>
-                <td>
-                        <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-outline-danger">حذف</a>
-                </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var patient in Model)
+            {
+                <tr>
+                    <td>@patient.Id</td>
+                    <td>@patient.Name</td>
+                    <td>@patient.phone</td>
+                    <td>@patient.Email</td>
+                    <td>@(patient.GenId == 1 ? "ذكر" : "أنثى")</td>
+                    <td>@patient.Date.ToShortDateString()</td>
+                    <td>@patient.Area</td>
+
+                    <!-- التقارير الطبية -->
+                    <td>
+                        @if (!string.IsNullOrEmpty(patient.Report))
+                        {
+                            <a href="@patient.Report" target="_blank" class="report-link">تحميل التقرير</a>
+                        }
+                        else
+                        {
+                            <span>لا يوجد تقرير</span>
+                        }
+                    </td>
+
+                    <!-- صور الأشعة والتحاليل -->
+                    <td>
+                        @if (!string.IsNullOrEmpty(patient.Image))
+                        {
+                            <a href="@patient.Image" target="_blank" class="report-link"> تحميل صور الاشعه</a>
+                        }
+                        else
+                        {
+                            <span>لا توجد صورة</span>
+                        }
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@patient.Id" class="btn btn-outline-warning">تعديل</a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-outline-danger">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
     <div class="text-end">
         <a asp-action="Create" class="btn btn-outline-success mt-2">اضافة مريض</a>

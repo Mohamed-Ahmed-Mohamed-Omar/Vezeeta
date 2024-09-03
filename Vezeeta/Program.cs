@@ -3,6 +3,7 @@ using Vezeeta.Data;
 using Vezeeta.Helpers;
 using Vezeeta.Service.Interface;
 using Vezeeta.Service.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("Defult"))
     );
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddHttpContextAccessor();
 
 // Auto Mapper
 builder.Services.AddAutoMapper(m => m.AddProfile(new AutoMapperProfile()));
@@ -25,7 +33,7 @@ builder.Services.AddTransient<IPatientRepository, PatientRepository>();
 
 builder.Services.AddTransient<IAreaRepository, AreaRepository>();
 
-builder.Services.AddTransient<IGenderRepository, GenderRepository>();
+builder.Services.AddTransient<IFileRepository, FileRepository>();
 
 #endregion
 
@@ -44,10 +52,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();

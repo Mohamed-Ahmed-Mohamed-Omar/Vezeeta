@@ -12,7 +12,7 @@ using Vezeeta.Data;
 namespace Vezeeta.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240903155815_Initial")]
+    [Migration("20240905193000_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -67,23 +67,6 @@ namespace Vezeeta.Migrations
                     b.ToTable("contact_Us");
                 });
 
-            modelBuilder.Entity("Vezeeta.Data.Entities.Gender", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GenderName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("genders");
-                });
-
             modelBuilder.Entity("Vezeeta.Data.Entities.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -102,11 +85,17 @@ namespace Vezeeta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GenderId")
+                    b.Property<int>("GenId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Report")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("phone")
@@ -116,8 +105,6 @@ namespace Vezeeta.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId");
-
-                    b.HasIndex("GenderId");
 
                     b.ToTable("patients");
                 });
@@ -130,15 +117,7 @@ namespace Vezeeta.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vezeeta.Data.Entities.Gender", "Gender")
-                        .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Area");
-
-                    b.Navigation("Gender");
                 });
 #pragma warning restore 612, 618
         }

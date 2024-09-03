@@ -40,19 +40,6 @@ namespace Vezeeta.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "genders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GenderName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_genders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "patients",
                 columns: table => new
                 {
@@ -61,9 +48,11 @@ namespace Vezeeta.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GenderId = table.Column<int>(type: "int", nullable: false),
+                    GenId = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AreaId = table.Column<int>(type: "int", nullable: false)
+                    AreaId = table.Column<int>(type: "int", nullable: false),
+                    Report = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,23 +63,12 @@ namespace Vezeeta.Migrations
                         principalTable: "areas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_patients_genders_GenderId",
-                        column: x => x.GenderId,
-                        principalTable: "genders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_patients_AreaId",
                 table: "patients",
                 column: "AreaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_patients_GenderId",
-                table: "patients",
-                column: "GenderId");
         }
 
         /// <inheritdoc />
@@ -104,9 +82,6 @@ namespace Vezeeta.Migrations
 
             migrationBuilder.DropTable(
                 name: "areas");
-
-            migrationBuilder.DropTable(
-                name: "genders");
         }
     }
 }
